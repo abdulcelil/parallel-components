@@ -59,7 +59,7 @@ bool queue_equality(const std::vector<std::queue<T>>& queue_vec)
 
 
 
-//Allows the components to be packaged to be prepared for receiving their packages.
+//Allows the components to be packaged ,to be prepared for receiving their packages.
 template <class Tuple, std::size_t... I>
 void send_ready(Tuple& t, std::index_sequence<I...>)
 {
