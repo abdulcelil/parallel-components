@@ -154,7 +154,7 @@ public:
 
     }
     
-    //Queue to receive the package that will start the sends
+    //Queue number to start the sends
     bool send_order_no(int order)
     {
         
