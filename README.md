@@ -50,7 +50,7 @@ using StringPtr = std::shared_ptr<std::string>;
          
         });
 
- Node<StringPtr, StringPtr> comp2(2, [&](const StringPtr a)
+ Node<StringPtr, StringPtr> comp2(1, [&](const StringPtr a)
         {
             if (a.get())
             {
@@ -70,7 +70,7 @@ using StringPtr = std::shared_ptr<std::string>;
             {
                //.......
 
-                return   .... // döndürülecek değer
+                return   .... // 
             
             }
             return StringPtr();
