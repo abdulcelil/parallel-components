@@ -26,6 +26,7 @@
 
 using StringPtr = std::shared_ptr<std::string>;
 
+//Simple input component class for send values
 template <typename ReturnType>
 class Input
 {
@@ -120,8 +121,10 @@ public:
 int main()
 {
 
+    //Simple use
     int m{};
     int i{}
+    //Local mutex for prevent simultaneous output
     std::mutex _mutex;
     
     Input<StringPtr> input(1, [&]()
@@ -131,7 +134,7 @@ int main()
 
         });
 
-    Node<StringPtr, StringPtr> f1(2, [&](const StringPtr a)
+    Node<StringPtr, StringPtr> f1(2, [&](const StringPtr& a)
         {
             if (a.get())
             {
@@ -145,7 +148,7 @@ int main()
 
         });
 
-    Node<StringPtr, StringPtr> f2(2, [&](const StringPtr a)
+    Node<StringPtr, StringPtr> f2(2, [&](const StringPtr& a)
         {
             if (a.get())
             {
@@ -160,7 +163,7 @@ int main()
         });
 
 
-    Node<StringPtr, StringPtr, StringPtr> f3(1, [&](const StringPtr a, const StringPtr b)
+    Node<StringPtr, StringPtr, StringPtr> f3(1, [&](const StringPtr& a, const StringPtr& b)
         {
 
             if (a.get() && b.get())
@@ -171,7 +174,7 @@ int main()
     return StringPtr();
 
         });
-    Node<StringPtr, StringPtr, StringPtr> f4(1, [&](const StringPtr a, const StringPtr b)
+    Node<StringPtr, StringPtr, StringPtr> f4(1, [&](const StringPtr& a, const StringPtr& b)
         {
 
             if (a.get() && b.get())
