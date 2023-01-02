@@ -10,14 +10,18 @@ transfer them to the output queues they host.
 
 # Components are defined as:
 
+The constructor must contain a connection number integer and a lambda expression.
+Connection number is the component number that receives results from this component.
+connection numbers will be automated in my next work.
+For the Node Components template parameters, the first parameter is the data type in the outputs, 
+the other parameters are the data types of the parameters of the lambda expression
+
+```
+
 // Defining data structure, data can be smart ponter
 using StringPtr = std::shared_ptr<std::string>;
 
-//The constructor must contain a connection number integer and a lambda expression.
-//Connection number is the component number that receives results from this component.
-//connection numbers will be automated in my next work.
-//For the Node Components template parameters, the first parameter is the data type in the outputs, 
-//the other parameters are the data types of the parameters of the lambda expression
+
   Node<StringPtr, StringPtr> f1(2, [&](const StringPtr a) 
         {
             //Decides whether to process the value in its input
@@ -31,8 +35,10 @@ using StringPtr = std::shared_ptr<std::string>;
        
         });
 
+```
 # Use of Components:
 
+```
  Node<StringPtr, StringPtr> comp1(2, [&](const StringPtr a)
         {
             if (a.get())
@@ -71,11 +77,13 @@ using StringPtr = std::shared_ptr<std::string>;
             return StringPtr();
 
         });
+```
 
 The use of components defined in this way is as follows,
 In addition to these three components,
  there should be Input and Output component classes defined differently from the Node class.
 
+```
 // With the start function, it is defined from which components the component will receive the results.
 Input input{};
 Output output{};
@@ -91,10 +99,11 @@ output.join();
 comp1.join();
 comp2.join();
 comp3.join();
-
+```
 
 # Designing Component Classes Other Than Node Class
 
+```
 template <typename ReturnType>
 class Input
 {
@@ -188,5 +197,5 @@ public:
             threads.at(0).join();
     }
 };
-
+```
 
