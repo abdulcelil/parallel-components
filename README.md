@@ -32,6 +32,7 @@ using StringPtr = std::shared_ptr<std::string>;
         });
 
 # Use of Components:
+
  Node<StringPtr, StringPtr> comp1(2, [&](const StringPtr a)
         {
             if (a.get())
