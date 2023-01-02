@@ -1,5 +1,4 @@
-# parallel-components
-About the C++ Parallel Components Thread Container Library:
+# About the C++ Parallel Components Thread Container Library
 With this library, communication between threads is simpler than global variables can be provided.
 These components, represented by the node class, can transfer the results they produce to other components.
 We can use these components in real life just like the units working in a factory or like humans.
@@ -8,7 +7,7 @@ Node classes run the functions of the threads they are connected to and the valu
 transfer them to the output queues they host.
 
 
-# Components are defined as:
+# Components are defined as
 
 The constructor must contain a connection number integer and a lambda expression.
 Connection number is the component number that receives results from this component.
