@@ -74,13 +74,8 @@ public:
 
     bool send_stop()
     {
-        //Butun beslenen nodelar elemanlarını aldığında dursun
-
         send_order = -1;
-
-
         return true;
-
     }
 
 
@@ -126,11 +121,9 @@ int main()
 {
 
     int m{};
-
-  
+    int i{}
     std::mutex _mutex;
-    int i = 0;
-
+    
     Input<StringPtr> input(1, [&]()
         {
            
