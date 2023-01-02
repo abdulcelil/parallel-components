@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------
  * Parallel Components Thread Container Library
- * Copyright (C) 2022 ,Abdulcelil DO–AN.  Unless you have an agreement
- * with Abdulcelil DO–AN, for a separate license for this software code, the
+ * Copyright (C) 2022 ,Abdulcelil DO√êAN.  Unless you have an agreement
+ * with Abdulcelil DO√êAN, for a separate license for this software code, the
  * following terms and conditions apply:
  *
  * This program is free software: you can redistribute it and/or modify
@@ -34,7 +34,11 @@
 #include <string>
 #include <algorithm>
 
+//This is the global mutex for all components
 std::mutex mutex{};
+
+//Test auxiliary function to check whether all queues at the output of a component are equal in size.
+//The purpose of this function is to distribute all output queues equally.
 template<typename T>
 bool queue_equality(const std::vector<std::queue<T>>& queue_vec)
 {
@@ -55,7 +59,7 @@ bool queue_equality(const std::vector<std::queue<T>>& queue_vec)
 
 
 
-
+//Allows the components to be packaged to be prepared for receiving their packages.
 template <class Tuple, std::size_t... I>
 void send_ready(Tuple& t, std::index_sequence<I...>)
 {
@@ -69,17 +73,26 @@ class Node
 {
 private:
 
+    //The number of subsequently started components that the component will pack
     int con_number{};
+    
+    //thread start flag ,default true 
     bool start_flag{ true };
+    
+    //vector to hold the thread, threads can only be kept in this way, because otherwise it must be defined beforehand
     std::vector<std::thread> threads{};
+    
+    //lambda function object that threads will run
     std::function<ReturnType(FunctionParamTypes...)> function;
+    
+    //determines in which queue the packet will be delivered
     int send_order{0};
+    
+    //output queues of the component
     std::vector<std::queue<ReturnType>> queue_vec;
 public:
-    
-
-
-
+   
+    //constructor
     Node<ReturnType, FunctionParamTypes...>(int con_number_, const std::function<ReturnType(FunctionParamTypes...)>& function_)
         : con_number(con_number_), function(function_)
     {
@@ -87,13 +100,14 @@ public:
         queue_vec.resize(con_number_);
     }
 
-
+    //Thread function
+    //Takes as parameters the component objects whose packages it will receive
     template <typename... OtherCallingNodes>
     void run(OtherCallingNodes& ...other_calling_nodes)
     {
         while (start_flag)
         {
-                
+                //To prevent simultaneous reception of other components
                 mutex.lock();
 
                 
@@ -103,22 +117,27 @@ public:
                 constexpr auto size = std::tuple_size_v<std::remove_reference_t<Tuple>>;
                 auto mki = std::make_index_sequence<size>{};
                 
+                //It is requested to prepare the components whose packages will be taken.
                 send_ready(tuple, mki);
 
-
+                //If the output queues are empty or have equal sizes, start the reception.
                 if (queue_equality<ReturnType>(queue_vec))
                 {
+                    //Start package recevive if other components are ready
                     if ((other_calling_nodes.get_ready() && ...))
                     {
+                        //Receive and process packages
                         ReturnType  r = function(other_calling_nodes.get_packet() ...);
-
+                        
+                        //Accept if lambda result is true
                         if (r.get())
                         {
+                            //Push function result to output queues
                             for (std::queue<ReturnType>& q : queue_vec)
                             {
                                 q.push(r);
                             }
-
+                            //Data received and other components stop sending until next reception
                              ((other_calling_nodes.send_stop() && ...));
 
 
@@ -134,6 +153,8 @@ public:
         }
 
     }
+    
+    //Queue to receive the package that will start the sends
     bool send_order_no(int order)
     {
         
@@ -142,6 +163,7 @@ public:
 
     }
 
+    //Cancel package delivery until next pick up
     bool send_stop()
     {
         
@@ -152,7 +174,7 @@ public:
 
     }
 
-
+    //send package from requested queue
     ReturnType get_packet()
     {
 
@@ -165,7 +187,7 @@ public:
         return ReturnType();
     }
 
-   
+   // Is the package ready to send?
     bool get_ready() const
     {
        if( send_order > -1 && send_order <= con_number - 1 && send_order < queue_vec.size() && !queue_vec.at(send_order).empty())
@@ -178,6 +200,7 @@ public:
     }
 
 
+    //the function that will trigger the thread and pass the components to the run function
     template <typename... OtherCallingNodes>
     void start(OtherCallingNodes& ...other_calling_nodes)
     {
