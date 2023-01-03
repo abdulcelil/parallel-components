@@ -102,3 +102,6 @@ comp3.join();
 # Tests
 
 I haven't written the test codes yet, I ran it in Visual Studio 2019.
+
+# About Project
+This project is experimental yet. It needs improvement. If you are interested, you can contribute. Thank you.
