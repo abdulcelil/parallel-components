@@ -7,7 +7,7 @@ Node classes run the functions of the threads they are connected to and the valu
 transfer them to the output queues they host.
 
 
-# Components are defined as
+# Creating components
 
 The constructor must contain a connection number integer and a lambda expression.
 Connection number is the component number that receives results from this component.
