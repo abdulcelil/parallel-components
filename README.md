@@ -8,7 +8,7 @@ transfer them to the output queues they host.
 
 
 # General Summary English
-This code appears to be an implementation of a parallel components thread container library. It defines a templated Input class that takes a function object and runs it in a loop, producing results that are pushed onto a queue. The Input class also has a start() method that sets a flag to begin processing and a join() method that waits for the thread to finish execution.
+This code is  an implementation of a parallel components thread container library. It defines a templated Input class that takes a function object and runs it in a loop, producing results that are pushed onto a queue. The Input class also has a start() method that sets a flag to begin processing and a join() method that waits for the thread to finish execution.
 
 The main() function initializes several Node objects, each taking input from another Node or the Input class. The Node objects perform some operation on the input, produce output, and pass that output to the next Node in the pipeline.
 
