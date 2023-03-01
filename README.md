@@ -21,8 +21,6 @@ The library uses a queue-based data flow model to process data. Each Node object
 
 The library uses the std::thread class to run each Node object in a separate thread, and it uses the std::mutex class to synchronize the access to the input and output queues. The library also provides several helper functions for managing the input and output queues, including queue_equality function that checks whether all output queues of a component have equal sizes, and send_ready_to_all_producers function that sends a signal to all input Node objects indicating that the component is ready to receive input data.
 
-The library is licensed under the GNU Affero Public License version 3, which is a copyleft license that requires all modifications and derivative works to be licensed under the same license.
-
 The C++ source code implementing a thread container library. The library allows users to define components and link them together to form a processing pipeline. Each component can receive inputs from one or more upstream components and produce outputs to one or more downstream components.
 
 The code defines a class template Node that represents a processing component. A Node object is created by providing a function object that defines the processing logic for the component. The function object takes one or more arguments of a specific type and returns a value of a specific type.
