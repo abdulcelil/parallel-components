@@ -22,7 +22,6 @@ The C++ source code implementing a thread container library. The library allows 
 
 The code defines a class template Node that represents a processing component. A Node object is created by providing a function object that defines the processing logic for the component. The function object takes one or more arguments of a specific type and returns a value of a specific type.
 
-The Node class template has several member functions that allow it to communicate with other Node objects in the processing pipeline. The run function starts a new thread and waits for inputs from upstream components. The consumer_number_inc function is called by downstream components to register the Node object as a producer of output. The producer_get_order function is called by upstream components to specify the output queue to which a produced value should be sent. The producer_get_packet function is called by downstream components 
 
 
 # Tests
