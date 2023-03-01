@@ -7,14 +7,6 @@ Node classes run the functions of the threads they are connected to and the valu
 transfer them to the output queues they host.
 
 
-# Creating components
-
-The constructor must contain a connection number integer and a lambda expression.
-Connection number is the component number that receives results from this component.
-connection numbers will be automated in my next work.
-For the Node Components template parameters, the first parameter is the data type in the outputs, 
-the other parameters are the data types of the parameters of the lambda expression
-
 # General Summary English
 This code appears to be an implementation of a parallel components thread container library. It defines a templated Input class that takes a function object and runs it in a loop, producing results that are pushed onto a queue. The Input class also has a start() method that sets a flag to begin processing and a join() method that waits for the thread to finish execution.
 
