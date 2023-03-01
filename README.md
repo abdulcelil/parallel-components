@@ -23,7 +23,7 @@ The library uses the std::thread class to run each Node object in a separate thr
 
 The library is licensed under the GNU Affero Public License version 3, which is a copyleft license that requires all modifications and derivative works to be licensed under the same license.
 
-This is a C++ source code implementing a thread container library. The library allows users to define components and link them together to form a processing pipeline. Each component can receive inputs from one or more upstream components and produce outputs to one or more downstream components.
+The C++ source code implementing a thread container library. The library allows users to define components and link them together to form a processing pipeline. Each component can receive inputs from one or more upstream components and produce outputs to one or more downstream components.
 
 The code defines a class template Node that represents a processing component. A Node object is created by providing a function object that defines the processing logic for the component. The function object takes one or more arguments of a specific type and returns a value of a specific type.
 
